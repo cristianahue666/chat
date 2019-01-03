@@ -1,18 +1,24 @@
-import firebase from 'firebase';
+import {auth} from '@/fire';
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
-import Login from './views/Login.vue';
-import SignUp from './views/SignUp.vue';
+
+import Home from '@/views/Home';
+import Login from '@/views/Login';
+import SignUp from '@/views/SignUp';
+import chatpriv from '@/views/chatpriv';
+import chat from '@/views/chat'
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
     routes: [
         {
-            path: '/home',
-            name: 'home',
-            component: Home
+            path: '*',
+            redirect: '/login'
+        },
+        {
+            path: '/',
+            redirect: '/login'
         },
         {
             path: '/login',
@@ -23,6 +29,39 @@ export default new Router({
             path: '/sign-up',
             name: 'SignUp',
             component: SignUp
-        }
+        },
+        {
+            path: '/chatpriv',
+            name: 'chatpriv',
+            component: chatpriv,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/chat',
+            name: 'chat',
+            component: chat
+        },
+        {
+            path: '/home',
+            name: 'Home',
+            component: Home,
+            meta: {
+                requiresAuth: true
+            }
+        }       
     ]
 });
+
+router.beforeEach((to, from, next) => {
+    //return next()
+    const currentUser = auth.currentUser;
+    const requiresAuth= to.matched.some(record => record.meta.requiresAuth);
+    
+    if(requiresAuth && !currentUser) next('login');
+    else if (!requiresAuth && currentUser) next('home');
+    else next();
+});
+
+export default router;

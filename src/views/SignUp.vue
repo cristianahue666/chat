@@ -3,7 +3,7 @@
         <p>Crear una nueva cuenta!</p>
         <input type="text" v-model="email" placeholder="Email"><br>
         <input type="password" v-model="password" placeholder="Password"><br>
-        <button @click="login">Sign Up</button>
+        <button @click="signUp">Sign Up</button>
         <span>O vuelve al <router-link to="/login"> login</router-link>.</span>
     </div>
 </template>
@@ -13,7 +13,7 @@ import firebase from 'firebase';
 
 export default {
     name: 'signUp',
-    data(){
+    data() {
         return{
             email: '',
             password: ''
@@ -22,11 +22,11 @@ export default {
     methods: {
         signUp: function(){
             firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
-                function(user){
-                    alert('Tu cuenta ha sido creada !')
+                (user) => {
+                    this.$router.replace('home')
                 },
-                function(err){
-                    alert('Ooop. ' + err.message)
+                (err) => {
+                    alert('Ooops. ' + err.message)
                 }
             );
         }

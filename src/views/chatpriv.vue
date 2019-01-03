@@ -1,21 +1,13 @@
 <template>
   <div id="app">
-    <div id="nav">
-        <router-link to="/login">Login</router-link>|
-        <router-link to="/sign-up">Sign Up</router-link>|
-        <router-link to="/chatpriv">Chat Privado</router-link>|
-        <router-link to="/chat">Chat Global</router-link>
-        <br>
-
-      </div>
-      <!-- <div>
-        <div v-if="!username">You can't chat without a name. What's your name?
+      <div>
+        <div v-if="!username">No puedes chatear sin un nick, cual es el tuyo?
           <br>
           <input type="text" placeholder="Name" v-on:keyup.enter="updateUsername">
         </div>
         <div v-else>
-          From : {{username}}
-          <br>Message:
+          De : {{username}}
+          <br>Escriba su mensaje.
           <br>
           <textarea
             name
@@ -26,17 +18,19 @@
             v-on:keyup.enter="sendMessage"
           ></textarea>
         </div>
-        <hr>
+
         <div class="messages">
           <h3>Messages</h3>
-          <div class="message" v-for="message in messages" :key="message.id">
+          <div class="message" v-for="message in messagespriv" :key="message.id">
             <strong>{{message.username}}</strong>
             <p>{{message.text}}</p>
           </div>
         </div>
+      </div>
+      <!-- <div class="solid">
+
       </div> -->
-    <router-view/>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -46,7 +40,7 @@ export default {
   data() {
     return {
       username: "",
-      messages: []
+      messagespriv: []
     };
   },
 
@@ -65,49 +59,28 @@ export default {
           text: e.target.value
         };
         //Push message to firebase reference
-        database.ref("messages").push(message);
+        database.ref("messagespriv").push(message);
         e.target.value = "";
       }
     }
   },
   mounted() {
     let vm = this;
-    const itemsRef = database.ref("messages");
+    const itemsRef = database.ref("messagespriv");
     itemsRef.on("value", snapshot => {
       let data = snapshot.val();
-      let messages = [];
+      let messagespriv = [];
       Object.keys(data).forEach(key => {
-        messages.push({
+        messagespriv.push({
           id: key,
           username: data[key].username,
           text: data[key].text
         });
       });
-      vm.messages = messages;
-      console.log(vm.messages)
+      vm.messagespriv = messagespriv;
+      console.log(vm.messagespriv)
     });
   }
 };
 </script>
 
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>

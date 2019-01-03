@@ -1,21 +1,13 @@
 <template>
   <div id="app">
-    <div id="nav">
-        <router-link to="/login">Login</router-link>|
-        <router-link to="/sign-up">Sign Up</router-link>|
-        <router-link to="/chatpriv">Chat Privado</router-link>|
-        <router-link to="/chat">Chat Global</router-link>
-        <br>
-
-      </div>
-      <!-- <div>
+      <div>
         <div v-if="!username">You can't chat without a name. What's your name?
           <br>
           <input type="text" placeholder="Name" v-on:keyup.enter="updateUsername">
         </div>
         <div v-else>
-          From : {{username}}
-          <br>Message:
+          De : {{username}}
+          <br>Escriba su mensaje.
           <br>
           <textarea
             name
@@ -26,7 +18,6 @@
             v-on:keyup.enter="sendMessage"
           ></textarea>
         </div>
-        <hr>
         <div class="messages">
           <h3>Messages</h3>
           <div class="message" v-for="message in messages" :key="message.id">
@@ -34,9 +25,8 @@
             <p>{{message.text}}</p>
           </div>
         </div>
-      </div> -->
-    <router-view/>
-  </div>
+      </div>
+    </div>
 </template>
 
 <script>
@@ -64,7 +54,7 @@ export default {
           username: this.username,
           text: e.target.value
         };
-        //Push message to firebase reference
+        //Push >message to firebase reference
         database.ref("messages").push(message);
         e.target.value = "";
       }
@@ -110,4 +100,18 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+.messages {
+  border-style: outset;
+  border-color: red;
+  padding-top: 15px;  
+  width: 800px;
+  height: 500px;
+  float:right;
+  font-size: 20px;
+  overflow: auto;
+} 
+.messages h3{
+  color: red;
+}
+
 </style>

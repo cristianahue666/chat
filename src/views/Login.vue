@@ -1,8 +1,8 @@
 <template>
     <div class="login">
-        <h3>Sign In</h3>
-        <input type="text" placeholder="Email"><br>
-        <input type="password" placeholder="Password"><br>
+        <h3>Iniciar Sesion</h3>
+        <input type="text" v-model="email" placeholder="Email"><br>
+        <input type="password" v-model="password" placeholder="Password"><br>
         <button @click="login">Conectar</button>
         <p>No tienes cuenta? Crea una.</p> <router-link to="/sign-up">Crea Una</router-link>
     </div>
@@ -17,15 +17,15 @@
             return{
                 email: '',
                 password: ''
-            };
+            }
         },
         methods: {
             login: function(){
                 firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
-                    function(user){
-                        alert('Bienvenido, estas conectado')
+                    (user) => {
+                        this.$router.replace('chatpriv')
                     },
-                    function(err){
+                    (err) => {
                         alert('Oops. ' + err.message)
                     }
 
