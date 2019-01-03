@@ -18,6 +18,7 @@ export {
 
 }
 
+
 // vue.filter("isMyUsernameOrOnline", function(user) {
 //   if(user.username === this.newMessage.username) {
 //     return user.username + " (cristian)"

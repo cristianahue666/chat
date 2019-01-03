@@ -27,9 +27,6 @@
           </div>
         </div>
       </div>
-      <!-- <div class="solid">
-
-      </div> -->
     </div>
 </template>
 
@@ -62,6 +59,7 @@ export default {
         database.ref("messagespriv").push(message);
         e.target.value = "";
       }
+      
     }
   },
   mounted() {

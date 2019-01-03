@@ -21,7 +21,7 @@
         <div class="messages">
           <h3>Messages</h3>
           <div class="message" v-for="message in messages" :key="message.id">
-            <strong>{{message.username}}</strong>
+            <router-link to=""><strong>{{message.username}}</strong></router-link>
             <p>{{message.text}}</p>
           </div>
         </div>
