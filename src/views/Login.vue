@@ -4,7 +4,7 @@
         <input type="text" v-model="email" placeholder="Email"><br>
         <input type="password" v-model="password" placeholder="Password"><br>
         <button @click="login">Conectar</button>
-        <p>No tienes cuenta? Crea una.</p> <router-link to="/sign-up">Crea Una</router-link>
+        <p>No tienes cuenta?</p> <router-link to="/sign-up">Crear nueva cuenta</router-link>
     </div>
 </template>
 
@@ -23,7 +23,7 @@
             login: function(){
                 firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
                     (user) => {
-                        this.$router.replace('chatpriv')
+                        this.$router.replace('home')
                     },
                     (err) => {
                         alert('Oops. ' + err.message)

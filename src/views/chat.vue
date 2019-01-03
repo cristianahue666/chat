@@ -1,7 +1,7 @@
 <template>
   <div id="app">
       <div>
-        <div v-if="!username">You can't chat without a name. What's your name?
+        <div v-if="!username">No puedes chatear sin un nick, cual es el tuyo?
           <br>
           <input type="text" placeholder="Name" v-on:keyup.enter="updateUsername">
         </div>
@@ -101,14 +101,17 @@ export default {
   color: #42b983;
 }
 .messages {
-  border-style: outset;
-  border-color: red;
+  border-style: dotted;
+  border-color: black;
   padding-top: 15px;  
   width: 800px;
   height: 500px;
-  float:right;
+  /* float:right; */
   font-size: 20px;
   overflow: auto;
+  margin-left: auto;
+  margin-right: auto;
+
 } 
 .messages h3{
   color: red;

@@ -39,75 +39,55 @@
   </div>
 </template>
 
-<script>
-import { database } from "@/fire.js";
-export default {
-  name: "app",
-  data() {
-    return {
-      username: "",
-      messages: []
-    };
-  },
+// <script>
+// import { database } from "@/fire.js";
+// export default {
+//   name: "app",
+//   data() {
+//     return {
+//       username: "",
+//       messages: []
+//     };
+//   },
 
-  methods: {
-    updateUsername(e) {
-      e.preventDefault();
-      if (e.target.value) {
-        this.username = e.target.value;
-      }
-    },
-    sendMessage(e) {
-      e.preventDefault();
-      if (e.target.value) {
-        const message = {
-          username: this.username,
-          text: e.target.value
-        };
-        //Push message to firebase reference
-        database.ref("messages").push(message);
-        e.target.value = "";
-      }
-    }
-  },
-  mounted() {
-    let vm = this;
-    const itemsRef = database.ref("messages");
-    itemsRef.on("value", snapshot => {
-      let data = snapshot.val();
-      let messages = [];
-      Object.keys(data).forEach(key => {
-        messages.push({
-          id: key,
-          username: data[key].username,
-          text: data[key].text
-        });
-      });
-      vm.messages = messages;
-      console.log(vm.messages)
-    });
-  }
-};
-</script>
+//   methods: {
+//     updateUsername(e) {
+//       e.preventDefault();
+//       if (e.target.value) {
+//         this.username = e.target.value;
+//       }
+//     },
+//     sendMessage(e) {
+//       e.preventDefault();
+//       if (e.target.value) {
+//         const message = {
+//           username: this.username,
+//           text: e.target.value
+//         };
+//         //Push message to firebase reference
+//         database.ref("messages").push(message);
+//         e.target.value = "";
+//       }
+//     }
+//   },
+//   mounted() {
+//     let vm = this;
+//     const itemsRef = database.ref("messages");
+//     itemsRef.on("value", snapshot => {
+//       let data = snapshot.val();
+//       let messages = [];
+//       Object.keys(data).forEach(key => {
+//         messages.push({
+//           id: key,
+//           username: data[key].username,
+//           text: data[key].text
+//         });
+//       });
+//       vm.messages = messages;
+//       console.log(vm.messages)
+//     });
+//   }
+// };
+// </script>
 
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>

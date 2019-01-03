@@ -1,6 +1,6 @@
 <template>
     <div class="sign-up">
-        <p>Crear una nueva cuenta!</p>
+        <h3>Crear una nueva cuenta!</h3>
         <input type="text" v-model="email" placeholder="Email"><br>
         <input type="password" v-model="password" placeholder="Password"><br>
         <button @click="signUp">Sign Up</button>

@@ -17,3 +17,24 @@ export {
     database
 
 }
+
+// vue.filter("isMyUsernameOrOnline", function(user) {
+//   if(user.username === this.newMessage.username) {
+//     return user.username + " (cristian)"
+//   } else {
+//     if(user.online == true) {
+//       return user.username
+//     }
+//   }
+// });
+// Vue.filter("usersOnline", function(users) {  
+//   var numberOnline = 0;
+
+//   for(var i = 0; i < users.length; i++) {
+//     if(users[i].online == true) {
+//       numberOnline++;
+//     }
+//   }
+
+//   return numberOnline;
+// }); 
