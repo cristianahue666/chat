@@ -1,4 +1,4 @@
-import {auth} from '@/fire'
+import {auth} from '@/fire.js'
 import Vue from 'vue'
 
 import App from './App.vue'

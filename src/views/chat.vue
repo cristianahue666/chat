@@ -1,6 +1,18 @@
 <template>
   <div id="app">
       <div>
+        <div>
+            <h4>People in the chat:</h4>
+            <div v-for="message in nouser" :key="message.username">
+            <!--sending param from tag route-link to a other page-->  
+            <p><router-link :to="{ name: 'chatpriv', params: {nameprivate: message.username} }"
+            target="_blank">Chat with {{message.username}} :D</router-link> </p>
+            
+            </div>
+            <!-- <ul>
+               <li>{{username}}</li> 
+            </ul> -->
+      </div>
         <div v-if="!username">No puedes chatear sin un nick, cual es el tuyo?
           <br>
           <input type="text" placeholder="Name" v-on:keyup.enter="updateUsername">
@@ -31,14 +43,16 @@
 </template>
 
 <script>
-import { database } from "@/fire.js";
+import { database, auth } from "@/fire.js";
 export default {
   name: "app",
   data() {
     return {
       username: "",
-      messages: []
-    };
+      messages: [],
+      ide: null,
+      nouser: null
+    }
   },
 
   methods: {
@@ -63,6 +77,7 @@ export default {
   },
   mounted() {
     let vm = this;
+    this.username = auth.currenteUser.email
     const itemsRef = database.ref("messages");
     itemsRef.on("value", snapshot => {
       let data = snapshot.val();
@@ -75,8 +90,24 @@ export default {
         });
       });
       vm.messages = messages;
-      console.log(vm.messages)
-    });
+    })
+    const itemsRefi = database.ref('users');
+    itemsRefi.on('value', snapshot => {
+      let data = snapshot.val();
+      let messages = [];
+      Object.keys(data).forEach(key => {
+      // Making "if" to ask wich username is wich username
+       if (this.username != data[key].email)
+         { 
+          messages.push({
+            username: data[key].email,
+          });
+        }
+      });
+      this.nouser = messages;
+      console.log(nouser)
+      //vm.users = Object.values(vm.nouser.reduce((prev,next)=>Object.assign(prev,{[next.username]:next}),{})); //Deleting from the array the equasl parameters
+    })
   }
 };
 </script>
