@@ -18,10 +18,11 @@
             v-on:keyup.enter="sendMessage"
           ></textarea>
         </div>
+        <br>
         <div class="messages">
           <h3>Messages</h3>
           <div class="message" v-for="message in messages" :key="message.id">
-            <router-link to=""><strong>{{message.username}}</strong></router-link>
+          <strong>{{message.username}}</strong>
             <p>{{message.text}}</p>
           </div>
         </div>
@@ -104,8 +105,8 @@ export default {
   border-style: dotted;
   border-color: black;
   padding-top: 15px;  
-  width: 800px;
-  height: 500px;
+  width: 1000px;
+  height: 440px;
   /* float:right; */
   font-size: 20px;
   overflow: auto;
