@@ -1,6 +1,7 @@
 <template>
     <div class="login">
         <h3>Iniciar Sesion</h3>
+        <img src="https://www.oas.org/ext/Portals/14/EasyDNNNews/588/300300p2250EDNmainImage.png" alt="chat"><br>
         <input type="text" v-model="email" placeholder="Email"><br>
         <input type="password" v-model="password" placeholder="Password"><br>
         <button @click="login">Conectar</button>

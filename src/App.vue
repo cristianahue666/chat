@@ -1,14 +1,13 @@
 <template>
   <div id="app">
     <div id="nav">
-        <router-link to="/login">Login</router-link>|
-        <router-link to="/sign-up">Sign Up</router-link>|
-        <router-link to="/chatpriv">Chat Privado</router-link>|
-        <router-link to="/chat">Chat Global</router-link> <br>
+        <button><router-link to="/login">Login</router-link></button>
+        <button><router-link to="/sign-up">Sign Up</router-link></button>
+        <button><router-link to="/chatpriv">Chat Privado</router-link></button> 
+        <button><router-link to="/chat">Chat Global</router-link></button> <br>
         <br>
-
-      </div>
       
+      </div>  
     <router-view/>
   </div>
 </template>
