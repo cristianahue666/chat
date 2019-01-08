@@ -10,7 +10,7 @@
 </template>
 
 <script>
-    import firebase from 'firebase';
+    import {database, auth} from '@/fire.js'
 
     export default{
         name: 'login',
@@ -22,12 +22,13 @@
         },
         methods: {
             login: function(){
-                firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
+                auth.signInWithEmailAndPassword(this.email, this.password).then(
                     (user) => {
+                        console.log('Excelente! ahora estas conectado conmigo.')
                         this.$router.replace('home')
                     },
                     (err) => {
-                        alert('Oops. ' + err.message)
+                        alert('Error Error Error Error. ' + err.message)
                     }
 
                 );

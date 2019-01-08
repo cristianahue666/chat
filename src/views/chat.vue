@@ -1,17 +1,26 @@
 <template>
   <div id="app">
       <div>
-        <div v-if="!username">No puedes chatear sin un nick, cual es el tuyo?
-          <br>
-          <input type="text" placeholder="Name" v-on:keyup.enter="updateUsername">
-        </div>
-        <div v-else>
+        <div class="usersconect">
+            <h4>Usuarios conectados :</h4>
+            <div v-for="message in nouser" :key="message.username">
+            <!--sending param from tag route-link to a other page-->  
+            <p><router-link :to="{ name: 'chatpriv', params: {nameprivate: message.username} }"
+            target="_blank">{{message.username}} </router-link> </p>
+            
+            </div>
+            <!-- <ul>
+               <li>{{username}}</li> 
+            </ul> -->
+      </div>
+
+        <div>
           De : {{username}}
           <br>Escriba su mensaje.
           <br>
           <textarea
-            name
-            id
+            name =""
+            id=""
             cols="30"
             rows="10"
             placeholder="New Message"
@@ -20,9 +29,9 @@
         </div>
         <br>
         <div class="messages">
-          <h3>Messages</h3>
+          <h2>Messages</h2>
           <div class="message" v-for="message in messages" :key="message.id">
-          <strong>{{message.username}}</strong>
+          <h3><strong>{{message.username}}</strong></h3>
             <p>{{message.text}}</p>
           </div>
         </div>
@@ -31,23 +40,19 @@
 </template>
 
 <script>
-import { database } from "@/fire.js";
+import { database, auth } from "@/fire.js";
 export default {
   name: "app",
   data() {
     return {
       username: "",
-      messages: []
-    };
+      messages: [],
+      ide: null,
+      nouser: null
+    }
   },
 
   methods: {
-    updateUsername(e) {
-      e.preventDefault();
-      if (e.target.value) {
-        this.username = e.target.value;
-      }
-    },
     sendMessage(e) {
       e.preventDefault();
       if (e.target.value) {
@@ -57,12 +62,13 @@ export default {
         };
         //Push >message to firebase reference
         database.ref("messages").push(message);
-        e.target.value = "";
+        e.target.value = ""
       }
     }
   },
   mounted() {
     let vm = this;
+    this.username = auth.currentUser.email
     const itemsRef = database.ref("messages");
     itemsRef.on("value", snapshot => {
       let data = snapshot.val();
@@ -75,10 +81,29 @@ export default {
         });
       });
       vm.messages = messages;
-      console.log(vm.messages)
-    });
+    })
+    const itemsRefi = database.ref('usuarios');
+    itemsRefi.on('value', snapshot => {
+      let data = snapshot.val();
+      let messages = [];
+      Object.keys(data).forEach(key => {
+      // Making "if" to ask wich username is wich username
+         if (this.username != data[key].email)
+         {
+           messages.push({
+             username: data[key].email,
+
+           })
+         }
+      });
+      this.nouser = messages;
+      console.log(nouser)
+      //vm.users = Object.values(vm.nouser.reduce((prev,next)=>Object.assign(prev,{[next.username]:next}),{})); //Deleting from the array the equasl parameters
+    })  
   }
-};
+}
+</script>
+
 </script>
 
 <style>
@@ -112,10 +137,18 @@ export default {
   overflow: auto;
   margin-left: auto;
   margin-right: auto;
+  background-color:lightgreen;
+  color: black;
 
 } 
-.messages h3{
-  color: red;
+.messages h2{
+  color: red
 }
-
+.messages h3{
+  color: blueviolet;
+}
+.usersconect{
+  border-style: double;
+  overflow: auto;
+}
 </style>

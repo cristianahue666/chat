@@ -1,6 +1,6 @@
 import firebase from 'firebase'
 
-var config = {
+const config = {
     apiKey: "AIzaSyCtQWWqHi0Jr9KntlH7-FW_p2YY-cTrH-M",
     authDomain: "vue-firebase-cris.firebaseapp.com",
     databaseURL: "https://vue-firebase-cris.firebaseio.com",
