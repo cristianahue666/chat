@@ -22,7 +22,7 @@
         },
         methods: {
             login: function(){
-                firebase.auth().signInWithEmailAndPassword(this.email, this.password).then(
+                auth.signInWithEmailAndPassword(this.email, this.password).then(
                     (user) => {
                         console.log('Excelente! ahora estas conectado conmigo.')
                         this.$router.replace('home')

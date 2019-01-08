@@ -1,12 +1,13 @@
-import {auth} from '@/fire.js'
 import Vue from 'vue'
+import {auth} from '@/fire.js'
+
 
 import App from './App.vue'
 import router from './router'
 
 
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 
 let app= '';
 

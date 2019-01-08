@@ -10,24 +10,30 @@
 </template>
 
 <script>
-import firebase from 'firebase';
+import {database, auth} from '@/fire.js'
 
 export default {
     name: 'signUp',
     data() {
         return{
             email: '',
-            password: '',
+            password: ''
         }
     },
     methods: {
         signUp: function(){
-            firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
+            auth.createUserWithEmailAndPassword(this.email, this.password).then(
                 (user) => {
-                    this.$router.replace('home')
+                    alert('Has creado tu cuenta exitosamente!')
+                    const logged = {
+                        email: this.email,
+                        password: this.password
+                    }
+                    database.ref('usuarios').push(logged)
+                    this.$router.replace('chat')
                 },
                 (err) => {
-                    alert('Ooops. ' + err.message)
+                    alert('Error Error Error Error! ' + err.message)
                 }
             );
         }

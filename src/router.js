@@ -1,14 +1,14 @@
-import {auth} from '@/fire';
-import Vue from 'vue';
-import Router from 'vue-router';
+import {auth} from '@/fire'
+import Vue from 'vue'
+import Router from 'vue-router'
 
-import Home from '@/views/Home';
-import Login from '@/views/Login';
-import SignUp from '@/views/SignUp';
-import chatpriv from '@/views/chatpriv';
+import Home from '@/views/Home'
+import Login from '@/views/Login'
+import SignUp from '@/views/SignUp'
+import chatpriv from '@/views/chatpriv'
 import chat from '@/views/chat'
 
-Vue.use(Router);
+Vue.use(Router)
 
 const router = new Router({
     routes: [
@@ -31,7 +31,7 @@ const router = new Router({
             component: SignUp
         },
         {
-            path: '/chatpriv',
+            path: '/chatpriv/:nameprivate',
             name: 'chatpriv',
             component: chatpriv,
             meta: {
@@ -64,6 +64,7 @@ router.beforeEach((to, from, next) => {
     
     if(requiresAuth && !currentUser) next('login');
     else if (!requiresAuth && currentUser) next('home');
+    else if (!requiresAuth && currentUser) next('chatpriv');
     else next();
 });
 
